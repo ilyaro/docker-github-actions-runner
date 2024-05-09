@@ -14,6 +14,12 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 WORKDIR /actions-runner
 COPY install_actions.sh /actions-runner
 
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# Install the magic wrapper.
+ADD ./wrapdocker /usr/local/bin/wrapdocker
+RUN chmod +x /usr/local/bin/wrapdocker
+
 RUN chmod +x /actions-runner/install_actions.sh \
   && /actions-runner/install_actions.sh ${GH_RUNNER_VERSION} ${TARGETPLATFORM} \
   && rm /actions-runner/install_actions.sh \
@@ -23,4 +29,6 @@ COPY token.sh entrypoint.sh app_token.sh /
 RUN chmod +x /token.sh /entrypoint.sh /app_token.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["./bin/Runner.Listener", "run", "--startuptype", "service"]
+#CMD ["./bin/Runner.Listener", "run", "--startuptype", "service"]
+
+CMD /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
