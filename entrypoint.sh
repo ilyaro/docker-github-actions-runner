@@ -174,7 +174,7 @@ fi
 
 # Start docker service if needed (e.g. for docker-in-docker)
 if [[ ${_START_DOCKER_SERVICE} == "true" ]]; then
-  echo "Starting docker service"
+  ##echo "Starting docker service"
   _PREFIX=""
   [[ ${_RUN_AS_ROOT} != "true" ]] && _PREFIX="sudo"
   ## ilyaro: work arround issue with ulimit in docker 25 version https://github.com/docker/cli/issues/4807
