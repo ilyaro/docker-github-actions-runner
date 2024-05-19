@@ -184,7 +184,7 @@ if [[ ${_START_DOCKER_SERVICE} == "true" ]]; then
   chmod -R +s ${_RUNNER_WORKDIR}
   chmod -R 777 /opt/hostedtoolcache
   chmod -R +s /opt/hostedtoolcache
-  ${_PREFIX} service docker start
+  #${_PREFIX} service docker start
 fi
 
 # Container's command (CMD) execution as runner user
